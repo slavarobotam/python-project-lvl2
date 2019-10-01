@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.6"
+install: 
+  - make
+before_install:
+  - pip install poetry
+install:
+  - make install
