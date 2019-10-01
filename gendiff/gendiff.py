@@ -2,6 +2,7 @@
 
 import argparse
 
+
 def main():
     parser = argparse.ArgumentParser(description='Generate diff')
     parser.add_argument('first_file')
