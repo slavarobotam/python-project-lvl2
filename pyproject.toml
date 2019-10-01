@@ -11,6 +11,7 @@ packages = [
 python = "^3.6"
 
 [tool.poetry.dev-dependencies]
+flake8 = "^3.7"
 
 [tool.poetry.scripts]
 gendiff = "gendiff.gendiff:main"
