@@ -4,3 +4,7 @@
 
 Generate difference between two files.
 
+
+Compare two flat files (step 3)
+
+[![asciicast](https://asciinema.org/a/273033.svg)](https://asciinema.org/a/273033)
