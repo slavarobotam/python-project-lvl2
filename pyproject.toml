@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "slavarobotam_gendiff"
-version = "0.2.0"
+version = "0.3.0"
 description = "Compare to config files"
 authors = ["mari <zefiratakuet@yandex.ru>"]
 packages = [

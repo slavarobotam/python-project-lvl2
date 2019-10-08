@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import argparse
+import json
+import os
 
 
 def main():
@@ -9,7 +11,29 @@ def main():
     parser.add_argument('second_file')
     parser.add_argument('-f', '--format', help='set format of output')
     args = parser.parse_args()  # noqa F841
+    q = generate_diff(args.first_file, args.second_file)
+    print(q)
 
 
-if __name__ == '__main__':
-    main()
+def generate_diff(path1, path2):
+    file1 = json.load(open(path1))
+    file2 = json.load(open(path2))
+    same_key_items = {key: file1[key] for key in file1 if key in file2}
+    new_key_items = {key: file2[key] for key in file2 if key not in file1}
+    lost_key_items = {key: file1[key] for key in file1 if key not in file2}
+    new, lost, same = '+', '-', ' '
+    changelist = []
+    for key in same_key_items:
+        if file1[key] == file2[key]:
+            changelist.append('{} {}: {}'.format(same, key, file1[key]))
+        else:
+            changelist.append('{} {}: {}'.format(new, key, file2[key]))
+            changelist.append('{} {}: {}'.format(lost, key, file1[key]))
+    for key in new_key_items:
+        changelist.append('{} {}: {}'.format(new, key, file2[key]))
+    for key in lost_key_items:
+        changelist.append('{} {}: {}'.format(lost, key, file1[key]))
+    result_string = '\n  '.join(changelist)
+    begin = '{\n  '
+    end = '\n}'
+    return '{}{}{}'.format(begin, result_string, end)
