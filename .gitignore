@@ -2,6 +2,5 @@
 __pycache__/
 dist/
 .vscode/
-after.json
-before.json
 ololosh.py
+.pytest_cache/
