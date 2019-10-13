@@ -1,5 +1,7 @@
 env:
   global:
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+    - CODECLIMATE_REPO_TOKEN=5d936ffdc5fb67014e000843
     - CC_TEST_REPORTER_ID=0a43df257e69de9354faf9b80dc0d7275560134e3ad113a13462ac02b3be170f
 language: python
 python:
