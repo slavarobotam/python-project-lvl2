@@ -18,4 +18,5 @@ script:
   - make lint
   - make test
 after_script:
-  - ./cc-test-reporter --coverage after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter format-coverage -d -t coverage.py coverage.xml after-build $TRAVIS_TEST_RESULT
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi 
