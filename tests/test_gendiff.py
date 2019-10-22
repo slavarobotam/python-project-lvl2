@@ -15,4 +15,11 @@ import tests.fixtures.expected_results as expected
 def test_one():
     file1 = './tests/fixtures/before.json'
     file2 = './tests/fixtures/after.json'
-    assert generate_diff(file1, file2) == expected.PLAIN_JSON
+    assert generate_diff(file1, file2, 'json') == expected.PLAIN_JSON
+
+
+def test_yaml():
+    file1 = './tests/fixtures/before.yml'
+    file2 = './tests/fixtures/after.yml'
+    assert generate_diff(file1, file2, 'yaml') == expected.PLAIN_YAML
+
