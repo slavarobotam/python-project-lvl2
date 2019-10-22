@@ -2,7 +2,7 @@
 
 """Test correctness of function generating difference."""
 
-import pytest
+import pytest  # noqa: F401
 from gendiff import generate_diff
 import tests.fixtures.expected_results as expected
 
@@ -22,4 +22,3 @@ def test_yaml():
     file1 = './tests/fixtures/before.yml'
     file2 = './tests/fixtures/after.yml'
     assert generate_diff(file1, file2, 'yaml') == expected.PLAIN_YAML
-
