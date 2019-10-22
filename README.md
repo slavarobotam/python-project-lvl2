@@ -5,6 +5,10 @@
 Generate difference between two files.
 
 
-Compare two flat files (step 3)
+Compare two flat JSON files
 
 [![asciicast](https://asciinema.org/a/273033.svg)](https://asciinema.org/a/273033)
+
+Compare two flat YAML files
+
+[![asciicast](https://asciinema.org/a/276341.svg)](https://asciinema.org/a/276341)
