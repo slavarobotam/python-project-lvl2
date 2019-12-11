@@ -7,12 +7,13 @@ from gendiff import generate_diff, get_parsed_data, render
 import tests.fixtures.expected_results as expected
 
 
-
 @pytest.fixture()
 def paths():
     first = './tests/fixtures/before.json'
     second = './tests/fixtures/after.json'
     return first, second
+
+
 def test_one():
     first = './tests/fixtures/before.json'
     second = './tests/fixtures/after.json'
@@ -24,6 +25,7 @@ def test_one():
     result = render(ast)
     print('result:\n', result)
     assert result == expected.PLAIN_JSON
+
 
 def test_yaml():
     first = './tests/fixtures/before.yml'

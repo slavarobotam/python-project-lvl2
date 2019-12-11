@@ -16,6 +16,5 @@ def _read_data_from_file(file_path, extension):
 
 def get_parsed_data(filepath):
     extension = _get_extension(filepath)
-    
     raw_data = _read_data_from_file(filepath, extension)
     return raw_data
