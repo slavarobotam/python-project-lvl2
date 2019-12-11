@@ -17,7 +17,7 @@ PLAIN_YAML = '''{
 COMPLEX_JSON = '''{
     common: {
         setting1: Value 1
-        setting3: True
+        setting3: true
       + setting4: blah blah
       + setting5: {
             key5: value5

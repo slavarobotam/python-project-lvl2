@@ -78,5 +78,3 @@ def get_value(value, level=1):
     else:
         res = str(value)
     return res
-
-    
