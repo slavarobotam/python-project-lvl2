@@ -12,3 +12,7 @@ Compare two flat JSON files
 Compare two flat YAML files
 
 [![asciicast](https://asciinema.org/a/276341.svg)](https://asciinema.org/a/276341)
+
+Compare two complex JSON files
+
+[![asciicast](https://asciinema.org/a/bpqzU89qoI78YfErPKT7eDQhk.svg)](https://asciinema.org/a/bpqzU89qoI78YfErPKT7eDQhk)
