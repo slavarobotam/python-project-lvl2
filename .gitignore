@@ -5,3 +5,10 @@ dist/
 ololosh.py
 .pytest_cache/
 temp/
+draft.py
+after.json
+before.json
+after.yml
+before.yml
+complex_after.json
+complex_before.json
