@@ -68,7 +68,7 @@ def generate_diff(first, second):  # input two parsed data, output AST
 def render(data, level=1):
     if type(data) != dict:
         return str(data)
-    result = []git
+    result = []
     indent = INDENT * level
     if level == 1:
         result.append('{')
