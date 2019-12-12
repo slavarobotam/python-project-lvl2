@@ -68,23 +68,23 @@ def generate_diff(first, second):  # input two parsed data, output AST
 def render(data, level=1):
     if type(data) != dict:
         return str(data)
-    result = []
+    result = []git
     indent = INDENT * level
     if level == 1:
         result.append('{')
-    for key, value in data.items():
-        if value.get('type') == CHILDREN:
+    for key in data:
+        if data[key]['type'] == CHILDREN:
             result.append('{}{} {}: {{'.format(indent, SAME, key))
-            result.append(render(value['value'], level + 2))
+            result.append(render(data[key]['value'], level + 2))
             result.append('{}}}'.format(indent + INDENT))
-        elif value.get('type') == CHANGED:
+        elif data[key]['type'] == CHANGED:
             result.append('{}{} {}: {}'.format(
-                indent, NEW, key, value['new_value']))
+                indent, NEW, key, data[key]['new_value']))
             result.append('{}{} {}: {}'.format(
-                indent, LOST, key, value['old_value']))
+                indent, LOST, key, data[key]['old_value']))
         else:
             result.append('{}{} {}: {}'.format(
-                INDENT * level, value['type'], key, get_value(value, level)))
+                indent, data[key]['type'], key, get_value(data[key], level)))
     if level == 1:
         result.append('}')
     return '\n'.join(result)
