@@ -39,3 +39,11 @@ COMPLEX_JSON = '''{
         abc: 12345
     }
 }'''
+
+PLAIN_FORMAT = '''Property 'common.setting4' was added with value: 'blah blah'
+Property 'common.setting5' was added with value: 'complex value'
+Property 'common.setting2' was removed
+Property 'common.setting6' was removed
+Property 'group1.baz' was changed. From 'bas' to 'bars'
+Property 'group3' was added with value: 'complex value'
+Property 'group2' was removed'''

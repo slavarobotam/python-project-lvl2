@@ -3,8 +3,9 @@
 """Test correctness of function generating difference."""
 
 import pytest  # noqa: F401
-from gendiff import generate_diff, get_parsed_data, render
+from gendiff import generate_diff, get_parsed_data
 import tests.fixtures.expected_results as expected
+from gendiff.formatters import undefined, plain
 
 
 @pytest.fixture()
@@ -22,7 +23,7 @@ def test_one():
     print('expected.PLAIN_JSON:\n', expected.PLAIN_JSON)
     second = get_parsed_data(second)
     ast = generate_diff(first, second)
-    result = render(ast)
+    result = undefined.render(ast)
     print('result:\n', result)
     assert result == expected.PLAIN_JSON
 
@@ -36,7 +37,7 @@ def test_yaml():
     print('second', second)
     print('expected.PLAIN_YAML:\n', expected.PLAIN_YAML)
     ast = generate_diff(first, second)
-    result = render(ast)
+    result = undefined.render(ast)
     print('result:\n', result)
     assert result == expected.PLAIN_YAML
 
@@ -48,6 +49,18 @@ def test_complex_json():
     second = get_parsed_data(second)
     print('expected.PLAIN_YAML:\n', expected.COMPLEX_JSON)
     ast = generate_diff(first, second)
-    result = render(ast)
+    result = undefined.render(ast)
     print('result:\n', result)
     assert expected.COMPLEX_JSON == result
+
+
+def test_plain_format():
+    first = './tests/fixtures/complex_before.json'
+    second = './tests/fixtures/complex_after.json'
+    first = get_parsed_data(first)
+    second = get_parsed_data(second)
+    print('expected.PLAIN_FORMAT:\n', expected.PLAIN_FORMAT)
+    ast = generate_diff(first, second)
+    result = plain.render(ast)
+    print('result:\n', result)
+    assert expected.PLAIN_FORMAT == result
