@@ -20,3 +20,7 @@ Compare two complex JSON files
 Output in plain format
 
 [![asciicast](https://asciinema.org/a/287774.svg)](https://asciinema.org/a/287774)
+
+Output in json format
+
+[![asciicast](https://asciinema.org/a/289609.svg)](https://asciinema.org/a/289609)

@@ -1,8 +1,4 @@
-INDENT = '  '
-NEW, LOST, SAME = '+', '-', ' '
-CHILDREN = 'children'
-CHANGED = 'changed'
-COMPLEX = 'complex value'
+from gendiff.constants import NEW, LOST, SAME, CHILDREN, CHANGED, INDENT
 
 
 def render(data, level=1):
@@ -45,29 +41,3 @@ def get_value(value, level=1):
         else:
             res = str(value)
     return res
-
-
-def render_plain(data, path=''):
-    if type(data) != dict:
-        return str(data)
-    result = []
-    for key in data:
-        if not path:
-            path = key
-        else:
-            path = '{}.{}'.format(path, key)
-        if type(data[key]) == dict and 'type' not in data[key]:
-            result.append('Property {} was added with value: {}'.format(key, COMPLEX))  # noqa E501
-        if data[key]['type'] == NEW:
-            result.append('Property {} was added with value: {}'.format(
-                path, data[key]['value']))
-        elif data[key]['type'] == SAME and type(data[key]['value']) == dict:
-            result.append(render_plain(data[key]['value'], path))
-        elif data[key]['type'] == LOST:
-            result.append('Property {} was removed'.format(key))
-        elif data[key]['type'] == CHANGED:
-            result.append('Property {} was changed. From {} to {}'.format(
-                key, data[key]['old_value'], data[key]['new_value']))
-        else:
-            result.append('OOOOOOOOOOOOO')
-    return '\n'.join(result)
