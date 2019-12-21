@@ -49,17 +49,64 @@ Property 'group3' was added with value: 'complex value'
 Property 'group2' was removed'''
 
 
-JSON_FORMAT = '''{\
-"common": {"type": "children", "value": {\
-"setting1": {"type": " ", "value": "Value 1"}, \
-"setting3": {"type": " ", "value": true}, \
-"setting4": {"type": "+", "value": "blah blah"}, \
-"setting5": {"type": "+", "value": {"key5": "value5"}}, \
-"setting2": {"type": "-", "value": "200"}, \
-"setting6": {"type": "-", "value": {"key": "value"}}}}, \
-"group1": {"type": "children", "value": {\
-"baz": {"type": "changed", "old_value": \
-"bas", "new_value": "bars"}, \
-"foo": {"type": " ", "value": "bar"}}}, \
-"group3": {"type": "+", "value": {"fee": "100500"}}, \
-"group2": {"type": "-", "value": {"abc": "12345"}}}'''
+JSON_FORMAT = '''{
+  "common": {
+    "type": "children",
+    "value": {
+      "setting1": {
+        "type": " ",
+        "value": "Value 1"
+      },
+      "setting3": {
+        "type": " ",
+        "value": true
+      },
+      "setting4": {
+        "type": "+",
+        "value": "blah blah"
+      },
+      "setting5": {
+        "type": "+",
+        "value": {
+          "key5": "value5"
+        }
+      },
+      "setting2": {
+        "type": "-",
+        "value": "200"
+      },
+      "setting6": {
+        "type": "-",
+        "value": {
+          "key": "value"
+        }
+      }
+    }
+  },
+  "group1": {
+    "type": "children",
+    "value": {
+      "baz": {
+        "type": "changed",
+        "old_value": "bas",
+        "new_value": "bars"
+      },
+      "foo": {
+        "type": " ",
+        "value": "bar"
+      }
+    }
+  },
+  "group3": {
+    "type": "+",
+    "value": {
+      "fee": "100500"
+    }
+  },
+  "group2": {
+    "type": "-",
+    "value": {
+      "abc": "12345"
+    }
+  }
+}'''
