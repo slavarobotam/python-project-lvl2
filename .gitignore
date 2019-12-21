@@ -12,3 +12,4 @@ after.yml
 before.yml
 complex_before.json
 complex_after.json
+coverage.xml
