@@ -1,33 +1,4 @@
-#!/usr/bin/env python3
-
-import argparse
-from .parsers import get_parsed_data
-from gendiff.formatters import undefined, plain, json
 from gendiff.constants import NEW, LOST, SAME, CHILDREN, CHANGED
-
-
-def main():
-    parser = argparse.ArgumentParser(description='Generate diff')
-    parser.add_argument('first_file')
-    parser.add_argument('second_file')
-    parser.add_argument('-f', '--format', help='set format of output')
-    args = parser.parse_args()  # noqa F841
-    first = get_parsed_data(args.first_file)
-    second = get_parsed_data(args.second_file)
-    ast = generate_diff(first, second)
-    formatter = get_formatter(args.format)
-    rendered_result = formatter.render(ast)
-    print(rendered_result)
-
-
-def get_formatter(format):
-    if format == 'plain':
-        formatter = plain
-    elif format == 'json':
-        formatter = json
-    else:
-        formatter = undefined
-    return formatter
 
 
 def generate_diff(first, second):

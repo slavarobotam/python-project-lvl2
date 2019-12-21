@@ -23,7 +23,7 @@ pyyaml = "^5.0"
 
 
 [tool.poetry.scripts]
-gendiff = "gendiff.diff:main"
+gendiff = "gendiff.main_script:main"
 
 [[tool.poetry.source]]
 name = "ott45"
