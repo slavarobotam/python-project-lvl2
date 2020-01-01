@@ -30,7 +30,7 @@ def render(data, current_path=''):
             new_value = property_description.get('new_value')
             entry = "Property '{}' was changed. From '{}' to '{}'".format(
                 pathname, old_value, new_value)
-        
+
         # if the value stays the same
         else:
             continue
