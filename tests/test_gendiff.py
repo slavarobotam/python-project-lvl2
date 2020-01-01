@@ -15,7 +15,7 @@ def json_paths():
         'after': './tests/fixtures/after.json',
         'complex_before': './tests/fixtures/complex_before.json',
         'complex_after': './tests/fixtures/complex_after.json'
-        }
+    }
 
 
 @pytest.fixture()
@@ -23,7 +23,7 @@ def yaml_paths():
     return {
         'before': './tests/fixtures/before.yml',
         'after': './tests/fixtures/after.yml',
-        }
+    }
 
 
 def get_ast(first_path, second_path):  # gets two str paths and returns AST
