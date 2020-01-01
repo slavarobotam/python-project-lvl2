@@ -7,7 +7,7 @@ packages = [
     { include = "gendiff" },
   ]
 classifiers = [
-	"Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3",
   "License :: Freeware"
 ]
 
@@ -20,10 +20,11 @@ pytest = "^5.1"
 pytest-cov = "^2.7"
 coverage = "^4.5"
 pyyaml = "^5.0"
+rope = "^0.14.0"
 
 
 [tool.poetry.scripts]
-gendiff = "gendiff.main_script:main"
+gendiff = "gendiff.scripts.gendiff:main"
 
 [[tool.poetry.source]]
 name = "ott45"
@@ -32,4 +33,3 @@ url = "https://test.pypi.org/legacy/"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
-

@@ -9,9 +9,11 @@ def get_extension(file_path):
 
 def read_data_from_file(file_path, extension):
     if extension == 'yaml' or 'yml':
-        return yaml.load(open(file_path), Loader=yaml.FullLoader)
+        with open(file_path) as yaml_file:
+            return yaml.load(yaml_file, Loader=yaml.FullLoader)
     elif extension == 'json':
-        return json.load(open(file_path))
+        with open(file_path) as json_file:
+            return json.load(json_file)
 
 
 def get_parsed_data(filepath):

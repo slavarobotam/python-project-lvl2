@@ -2,14 +2,6 @@
 __pycache__/
 dist/
 .vscode/
-ololosh.py
 .pytest_cache/
 temp/
-draft.py
-after.json
-before.json
-after.yml
-before.yml
-complex_before.json
-complex_after.json
 coverage.xml

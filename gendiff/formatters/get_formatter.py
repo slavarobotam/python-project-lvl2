@@ -1,4 +1,4 @@
-from . import undefined, plain, json
+from gendiff.formatters import pretty, plain, json
 
 
 def get_formatter(format):
@@ -7,5 +7,5 @@ def get_formatter(format):
     elif format == 'json':
         formatter = json
     else:
-        formatter = undefined
+        formatter = pretty
     return formatter
