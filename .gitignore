@@ -3,5 +3,4 @@ __pycache__/
 dist/
 .vscode/
 .pytest_cache/
-temp/
 coverage.xml
