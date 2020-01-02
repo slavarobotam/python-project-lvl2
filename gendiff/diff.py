@@ -2,42 +2,51 @@ from gendiff.constants import NEW, LOST, SAME, CHILDREN, CHANGED
 
 
 def generate_diff(first, second):
-    same_items = {
-        key: {
-            'type': SAME,
-            'value': first[key]}
-        for key in first if key in second}
-    new_items = {
-        key: {
-            'type': NEW,
-            'value': second[key]}
-        for key in second if key not in first}
-    lost_items = {
-        key: {
-            'type': LOST,
-            'value': first[key]}
-        for key in first if key not in second}
+    first_keys = first.keys()
+    second_keys = second.keys()
     ast = {}
-    for key in same_items:
-        if first[key] == second[key]:  # if item remains the same
+
+    # create groups of keys
+    same_keys = [key for key in first_keys if key in second_keys]
+    new_keys = [key for key in second_keys if key not in first_keys]
+    lost_keys = [key for key in first_keys if key not in second_keys]
+
+    # iterate through same_keys to add SAME, CHILDREN and CHANGED to ast
+    for key in same_keys:
+        first_value = first[key]
+        second_value = second[key]
+        old_value = None  # parameter used for CHANGED type only
+        # if values are equal
+        if first_value == second_value:
+            type_ = SAME
+            value = first_value
+        # if both values are nested
+        elif isinstance(first_value, dict) and isinstance(second_value, dict):
+            type_ = CHILDREN
+            value = generate_diff(first_value, second_value)
+        # if the value was changed
+        else:
+            type_ = CHANGED
+            value = second_value
+            old_value = first_value
+        ast[key] = create_node(type_, value, old_value)
+
+    # iterate through new_keys and lost_keys to add NEW and LOST to ast
+    for type_, key_set, source in (
+        (NEW, new_keys, second),
+        (LOST, lost_keys, first),
+    ):
+        for key in key_set:
             ast[key] = {
-                'type': SAME,
-                'value': first[key]}
-        elif isinstance(first[key], dict) and isinstance(second[key], dict):
-            ast[key] = {
-                'type': CHILDREN,
-                'value': generate_diff(first[key], second[key])}
-        else:  # if item was changed
-            ast[key] = {
-                'type': CHANGED,
-                'old_value': first[key],
-                'new_value': second[key]}
-    for key in new_items:  # items that were added
-        ast[key] = {
-            'type': NEW,
-            'value': second[key]}
-    for key in lost_items:  # items that were removed
-        ast[key] = {
-            'type': LOST,
-            'value': first[key]}
+                'type': type_,
+                'value': source[key]
+            }
     return ast
+
+
+def create_node(type_, value, old_value=None):
+    if not old_value:
+        node = {'type': type_, 'value': value}
+    else:
+        node = {'type': type_, 'old_value': old_value, 'new_value': value}
+    return node
