@@ -6,31 +6,31 @@ import pytest  # noqa: F401
 from gendiff.engine import gendiff
 
 DATA_SETS_FOR_TESTCASES = {
-            'plain_json': 'plain_json_paths',
-            'plain_yaml': 'plain_yaml_paths',
-            'complex_json': 'complex_json_paths',
-            'format_json': 'complex_json_paths',
-            'format_plain': 'complex_json_paths'
+    'plain_json': 'plain_json_paths',
+    'plain_yaml': 'plain_yaml_paths',
+    'complex_json': 'complex_json_paths',
+    'format_json': 'complex_json_paths',
+    'format_plain': 'complex_json_paths'
 }
 
 DATA_SET_FILEPATHS = {
-        'plain_json_paths': (
-            'tests/fixtures/before.json',
-            'tests/fixtures/after.json'),
-        'plain_yaml_paths': (
-            'tests/fixtures/before.yml',
-            'tests/fixtures/after.yml'),
-        'complex_json_paths': (
-            'tests/fixtures/complex_before.json',
-            'tests/fixtures/complex_after.json')
+    'plain_json_paths': (
+        'tests/fixtures/before.json',
+        'tests/fixtures/after.json'),
+    'plain_yaml_paths': (
+        'tests/fixtures/before.yml',
+        'tests/fixtures/after.yml'),
+    'complex_json_paths': (
+        'tests/fixtures/complex_before.json',
+        'tests/fixtures/complex_after.json')
 }
 
 EXPECTED_RESULTS_PATHS = {
-        'plain_json': 'tests/fixtures/expected_for_plain_json.txt',
-        'plain_yaml': 'tests/fixtures/expected_for_plain_yaml.txt',
-        'complex_json': 'tests/fixtures/expected_for_complex_json.txt',
-        'format_plain': 'tests/fixtures/expected_format_plain.txt',
-        'format_json': 'tests/fixtures/expected_format_json.json'
+    'plain_json': 'tests/fixtures/expected_for_plain_json.txt',
+    'plain_yaml': 'tests/fixtures/expected_for_plain_yaml.txt',
+    'complex_json': 'tests/fixtures/expected_for_complex_json.txt',
+    'format_plain': 'tests/fixtures/expected_format_plain.txt',
+    'format_json': 'tests/fixtures/expected_format_json.json'
 }
 
 
