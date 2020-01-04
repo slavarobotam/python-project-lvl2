@@ -5,54 +5,50 @@
 import pytest  # noqa: F401
 from gendiff.engine import gendiff
 
+DATA_SETS_FOR_TESTCASES = {
+            'plain_json': 'plain_json_paths',
+            'plain_yaml': 'plain_yaml_paths',
+            'complex_json': 'complex_json_paths',
+            'format_json': 'complex_json_paths',
+            'format_plain': 'complex_json_paths'
+}
 
-@pytest.fixture()
-def expectations_paths():
-    return {
+DATA_SET_FILEPATHS = {
+        'plain_json_paths': (
+            'tests/fixtures/before.json',
+            'tests/fixtures/after.json'),
+        'plain_yaml_paths': (
+            'tests/fixtures/before.yml',
+            'tests/fixtures/after.yml'),
+        'complex_json_paths': (
+            'tests/fixtures/complex_before.json',
+            'tests/fixtures/complex_after.json')
+}
+
+EXPECTED_RESULTS_PATHS = {
         'plain_json': 'tests/fixtures/expected_for_plain_json.txt',
         'plain_yaml': 'tests/fixtures/expected_for_plain_yaml.txt',
         'complex_json': 'tests/fixtures/expected_for_complex_json.txt',
         'format_plain': 'tests/fixtures/expected_format_plain.txt',
         'format_json': 'tests/fixtures/expected_format_json.json'
-    }
+}
 
 
 @pytest.fixture()
-def expected_results(expectations_paths):
+def expected_results():
     def get_expected_result(testcase):
-        filepath = expectations_paths[testcase]
+        filepath = EXPECTED_RESULTS_PATHS[testcase]
         with open(filepath) as file:
             return file.read()
     return get_expected_result
 
 
 @pytest.fixture()
-def input_filepaths():
-    return {
-        'plain_json': (
-            'tests/fixtures/before.json',
-            'tests/fixtures/after.json'),
-        'plain_yaml': (
-            'tests/fixtures/before.yml',
-            'tests/fixtures/after.yml'),
-        'complex_json': (
-            'tests/fixtures/complex_before.json',
-            'tests/fixtures/complex_after.json')
-    }
-
-
-@pytest.fixture()
-def data_sets(input_filepaths):
-    def get_data_set(testcase):
-        data_sets = {
-            'plain_json': 'plain_json',
-            'plain_yaml': 'plain_yaml',
-            'complex_json': 'complex_json',
-            'format_json': 'complex_json',
-            'format_plain': 'complex_json'
-        }
-        return input_filepaths[data_sets[testcase]]
-    return get_data_set
+def data_sets():
+    def get_filepaths(testcase):
+        data_set = DATA_SETS_FOR_TESTCASES[testcase]
+        return DATA_SET_FILEPATHS[data_set]
+    return get_filepaths
 
 
 def test_plain_json(data_sets, expected_results):
