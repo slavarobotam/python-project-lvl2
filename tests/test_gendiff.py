@@ -3,71 +3,98 @@
 """Test correctness of function generating difference."""
 
 import pytest  # noqa: F401
-from gendiff import generate_diff, get_parsed_data
-import tests.fixtures.expected_results as expected
-from gendiff.formatters import pretty, plain, json
+from gendiff.engine import gendiff
 
 
 @pytest.fixture()
-def json_paths():
+def expectations_paths():
     return {
-        'before': './tests/fixtures/before.json',
-        'after': './tests/fixtures/after.json',
-        'complex_before': './tests/fixtures/complex_before.json',
-        'complex_after': './tests/fixtures/complex_after.json'
+        'plain_json': 'tests/fixtures/expected_for_plain_json.txt',
+        'plain_yaml': 'tests/fixtures/expected_for_plain_yaml.txt',
+        'complex_json': 'tests/fixtures/expected_for_complex_json.txt',
+        'format_plain': 'tests/fixtures/expected_format_plain.txt',
+        'format_json': 'tests/fixtures/expected_format_json.json'
     }
 
 
 @pytest.fixture()
-def yaml_paths():
+def expected_results(expectations_paths):
+    def get_expected_result(testcase):
+        filepath = expectations_paths[testcase]
+        with open(filepath) as file:
+            return file.read()
+    return get_expected_result
+
+
+@pytest.fixture()
+def input_filepaths():
     return {
-        'before': './tests/fixtures/before.yml',
-        'after': './tests/fixtures/after.yml',
+        'plain_json': (
+            'tests/fixtures/before.json',
+            'tests/fixtures/after.json'),
+        'plain_yaml': (
+            'tests/fixtures/before.yml',
+            'tests/fixtures/after.yml'),
+        'complex_json': (
+            'tests/fixtures/complex_before.json',
+            'tests/fixtures/complex_after.json')
     }
 
 
-def get_ast(first_path, second_path):  # gets two str paths and returns AST
-    first = get_parsed_data(first_path)
-    second = get_parsed_data(second_path)
-    ast = generate_diff(first, second)
-    return ast
+@pytest.fixture()
+def data_sets(input_filepaths):
+    def get_data_set(testcase):
+        data_sets = {
+            'plain_json': 'plain_json',
+            'plain_yaml': 'plain_yaml',
+            'complex_json': 'complex_json',
+            'format_json': 'complex_json',
+            'format_plain': 'complex_json'
+        }
+        return input_filepaths[data_sets[testcase]]
+    return get_data_set
 
 
-def test_plain_json(json_paths):
-    first = json_paths['before']
-    second = json_paths['after']
-    ast = get_ast(first, second)
-    result = pretty.render(ast)
-    assert expected.PLAIN_JSON == result
+def test_plain_json(data_sets, expected_results):
+    testcase = 'plain_json'
+    format = 'pretty'
+    first, second = data_sets(testcase)
+    expected_result = expected_results(testcase)
+    result = gendiff(first, second, format)
+    assert expected_result == result
 
 
-def test_plain_yaml(yaml_paths):
-    first = yaml_paths['before']
-    second = yaml_paths['after']
-    ast = get_ast(first, second)
-    result = pretty.render(ast)
-    assert expected.PLAIN_YAML == result
+def test_plain_yaml(data_sets, expected_results):
+    testcase = 'plain_yaml'
+    format = 'pretty'
+    first, second = data_sets(testcase)
+    expected_result = expected_results(testcase)
+    result = gendiff(first, second, format)
+    assert expected_result == result
 
 
-def test_complex_json(json_paths):
-    first = json_paths['complex_before']
-    second = json_paths['complex_after']
-    ast = get_ast(first, second)
-    result = pretty.render(ast)
-    assert expected.COMPLEX_JSON == result
+def test_complex_json(data_sets, expected_results):
+    testcase = 'complex_json'
+    format = 'pretty'
+    first, second = data_sets(testcase)
+    expected_result = expected_results(testcase)
+    result = gendiff(first, second, format)
+    assert expected_result == result
 
 
-def test_plain_format(json_paths):
-    first = json_paths['complex_before']
-    second = json_paths['complex_after']
-    ast = get_ast(first, second)
-    result = plain.render(ast)
-    assert expected.PLAIN_FORMAT == result
+def test_format_plain(data_sets, expected_results):
+    testcase = 'format_plain'
+    format = 'plain'
+    first, second = data_sets(testcase)
+    expected_result = expected_results(testcase)
+    result = gendiff(first, second, format)
+    assert expected_result == result
 
 
-def test_json_format(json_paths):
-    first = json_paths['complex_before']
-    second = json_paths['complex_after']
-    ast = get_ast(first, second)
-    result = json.render(ast)
-    assert expected.JSON_FORMAT == result
+def test_format_json(data_sets, expected_results):
+    testcase = 'format_json'
+    format = 'json'
+    first, second = data_sets(testcase)
+    expected_result = expected_results(testcase)
+    result = gendiff(first, second, format)
+    assert expected_result == result

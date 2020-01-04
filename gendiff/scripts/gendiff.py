@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-from gendiff.engine import gendiff, parser
+from gendiff.engine import parser, engine
 
 
 def main():
     args = parser.parse_args()
-    gendiff(args)
+    engine(args)
 
 
 if __name__ == '__main__':

@@ -1,23 +1,31 @@
 import argparse
 from gendiff.parsers import get_parsed_data
-from gendiff.diff import generate_diff
-from gendiff.formatters.get_formatter import get_formatter
+from gendiff.build_ast import build_ast
+from gendiff.formatters import FORMATTERS, DEFAULT_FORMATTER
 
 
 parser = argparse.ArgumentParser(description='Generate diff')
 parser.add_argument('first_file')
 parser.add_argument('second_file')
 parser.add_argument('-f', '--format',
-                    default='pretty',
+                    default=DEFAULT_FORMATTER,
                     type=str,
-                    choices=['plain', 'json', 'pretty'],
+                    choices=FORMATTERS.keys(),
                     help='set format of output: "plain", "json", "pretty"')
 
 
-def gendiff(args):
-    first = get_parsed_data(args.first_file)
-    second = get_parsed_data(args.second_file)
-    ast = generate_diff(first, second)
-    formatter = get_formatter(args.format)
+def gendiff(first_path, second_path, format=DEFAULT_FORMATTER):
+    first_data = get_parsed_data(first_path)
+    second_data = get_parsed_data(second_path)
+    ast = build_ast(first_data, second_data)
+    formatter = FORMATTERS[format]
     rendered_result = formatter.render(ast)
-    print(rendered_result)
+    return rendered_result
+
+
+def engine(args):
+    first_path = args.first_file
+    second_path = args.second_file
+    format = args.format
+    diff = gendiff(first_path, second_path, format)
+    print(diff)

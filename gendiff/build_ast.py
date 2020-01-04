@@ -1,7 +1,7 @@
 from gendiff.constants import NEW, LOST, SAME, CHILDREN, CHANGED
 
 
-def generate_diff(first, second):
+def build_ast(first, second):
     first_keys = first.keys()
     second_keys = second.keys()
     ast = {}
@@ -23,7 +23,7 @@ def generate_diff(first, second):
         # if both values are nested
         elif isinstance(first_value, dict) and isinstance(second_value, dict):
             type_ = CHILDREN
-            value = generate_diff(first_value, second_value)
+            value = build_ast(first_value, second_value)
         # if the value was changed
         else:
             type_ = CHANGED
@@ -37,10 +37,7 @@ def generate_diff(first, second):
         (LOST, lost_keys, first),
     ):
         for key in key_set:
-            ast[key] = {
-                'type': type_,
-                'value': source[key]
-            }
+            ast[key] = create_node(type_, source[key])
     return ast
 
 
