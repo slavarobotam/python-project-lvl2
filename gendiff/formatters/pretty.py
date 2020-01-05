@@ -1,4 +1,4 @@
-from gendiff.constants import NEW, LOST, SAME, CHILDREN, CHANGED, INDENT
+from gendiff.constants import NEW, LOST, SAME, NESTED, CHANGED, INDENT
 
 
 def render(data, level=1):
@@ -8,7 +8,7 @@ def render(data, level=1):
         type_ = description.get('type')
         value = description.get('value')
 
-        if type_ == CHILDREN:
+        if type_ == NESTED:
             result.append('{}{} {}: {{'.format(indent, SAME, key))
             result.append(render(value, level + 2))
             result.append('{}}}'.format(indent + INDENT))
@@ -19,7 +19,7 @@ def render(data, level=1):
             result.append('{}{} {}: {}'.format(indent, NEW, key, new_value))
             result.append('{}{} {}: {}'.format(indent, LOST, key, old_value))
 
-        else:  # for types LOST, SAME, NEW
+        else:  # for types LOST, SAME, NEW, SIMPLE
             result.append('{}{} {}: {}'.format(
                 indent, type_, key, get_str_value(value, level)))
 
@@ -29,21 +29,17 @@ def render(data, level=1):
 
 
 def get_str_value(value, level=1):
-    result = ''
-
     if isinstance(value, dict):
-        if 'type' in value:  # if nested dict
-            result += get_str_value(value.get('value'), level + 1)
-        else:  # if not nested dict
-            result += ('{\n')
-            for k, v in value.items():
-                result += ('{}{}: {}\n'.format(INDENT * (level + 3), k, v))
-                result += ('{}}}'.format(INDENT * (level + 1)))
-
+        lines = []
+        plain_dict = value.get('value')
+        lines.append('{')
+        for k, v in plain_dict.items():
+            lines.append('{}{}: {}'.format(INDENT * (level + 3), k, v))
+            lines.append('{}}}'.format(INDENT * (level + 1)))
+        result = '\n'.join(lines)
     else:  # if the value is not dict
         if type(value) is bool:
-            result += str(value).lower()
+            result = str(value).lower()
         else:
-            result += str(value)
-
+            result = str(value)
     return result

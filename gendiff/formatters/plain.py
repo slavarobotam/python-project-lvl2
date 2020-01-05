@@ -1,8 +1,8 @@
-from gendiff.constants import NEW, LOST, CHILDREN, CHANGED, COMPLEX, SAME
+from gendiff.constants import NEW, LOST, NESTED, CHANGED, COMPLEX, SAME
 
 
 def render(data, current_path=''):
-    if type(data) != dict:
+    if not isinstance(data, dict):
         return str(data)
     result = []
     for property_name, property_description in data.items():
@@ -16,7 +16,7 @@ def render(data, current_path=''):
                 pathname, current_value)
 
         # if the property is nested
-        elif type_ == CHILDREN:
+        elif type_ == NESTED:
             current_value = property_description.get('value')
             entry = render(current_value, pathname)
 

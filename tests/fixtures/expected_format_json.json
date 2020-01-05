@@ -1,6 +1,6 @@
 {
   "common": {
-    "type": "children",
+    "type": "nested",
     "value": {
       "setting1": {
         "type": " ",
@@ -17,7 +17,10 @@
       "setting5": {
         "type": "+",
         "value": {
-          "key5": "value5"
+          "type": "simple",
+          "value": {
+            "key5": "value5"
+          }
         }
       },
       "setting2": {
@@ -27,13 +30,16 @@
       "setting6": {
         "type": "-",
         "value": {
-          "key": "value"
+          "type": "simple",
+          "value": {
+            "key": "value"
+          }
         }
       }
     }
   },
   "group1": {
-    "type": "children",
+    "type": "nested",
     "value": {
       "baz": {
         "type": "changed",
@@ -49,13 +55,19 @@
   "group3": {
     "type": "+",
     "value": {
-      "fee": "100500"
+      "type": "simple",
+      "value": {
+        "fee": "100500"
+      }
     }
   },
   "group2": {
     "type": "-",
     "value": {
-      "abc": "12345"
+      "type": "simple",
+      "value": {
+        "abc": "12345"
+      }
     }
   }
 }

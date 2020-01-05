@@ -5,6 +5,7 @@
 import pytest  # noqa: F401
 from gendiff.engine import generate_diff
 
+
 # dict showing which files are used for each testcase
 DATA_SETS_FOR_TESTCASES = {
     'plain_json': 'plain_json_files',

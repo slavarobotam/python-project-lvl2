@@ -1,5 +1,6 @@
 INDENT = '  '
 NEW, LOST, SAME = '+', '-', ' '
-CHILDREN = 'children'
+NESTED = 'nested'
 CHANGED = 'changed'
 COMPLEX = 'complex value'
+SIMPLE = 'simple'
