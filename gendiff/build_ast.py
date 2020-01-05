@@ -2,14 +2,14 @@ from gendiff.constants import NEW, LOST, SAME, CHILDREN, CHANGED
 
 
 def build_ast(first, second):
-    first_keys = first.keys()
-    second_keys = second.keys()
+    first_keys = set(first.keys())
+    second_keys = set(second.keys())
     ast = {}
 
     # create groups of keys
-    same_keys = [key for key in first_keys if key in second_keys]
-    new_keys = [key for key in second_keys if key not in first_keys]
-    lost_keys = [key for key in first_keys if key not in second_keys]
+    same_keys = sorted(first_keys.intersection(second_keys))
+    new_keys = sorted(second_keys - first_keys)
+    lost_keys = sorted(first_keys - second_keys)
 
     # iterate through same_keys to add SAME, CHILDREN and CHANGED to ast
     for key in same_keys:

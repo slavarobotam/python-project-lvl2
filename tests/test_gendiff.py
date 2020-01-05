@@ -3,7 +3,7 @@
 """Test correctness of function generating difference."""
 
 import pytest  # noqa: F401
-from gendiff.engine import gendiff
+from gendiff.engine import generate_diff
 
 # dict showing which files are used for each testcase
 DATA_SETS_FOR_TESTCASES = {
@@ -58,32 +58,32 @@ def test_plain_json(data_sets, expected_results):
     testcase = 'plain_json'
     format = 'pretty'
     first, second = data_sets(testcase)
-    assert expected_results(testcase) == gendiff(first, second, format)
+    assert expected_results(testcase) == generate_diff(first, second, format)
 
 
 def test_plain_yaml(data_sets, expected_results):
     testcase = 'plain_yaml'
     format = 'pretty'
     first, second = data_sets(testcase)
-    assert expected_results(testcase) == gendiff(first, second, format)
+    assert expected_results(testcase) == generate_diff(first, second, format)
 
 
 def test_complex_json(data_sets, expected_results):
     testcase = 'complex_json'
     format = 'pretty'
     first, second = data_sets(testcase)
-    assert expected_results(testcase) == gendiff(first, second, format)
+    assert expected_results(testcase) == generate_diff(first, second, format)
 
 
 def test_format_plain(data_sets, expected_results):
     testcase = 'format_plain'
     format = 'plain'
     first, second = data_sets(testcase)
-    assert expected_results(testcase) == gendiff(first, second, format)
+    assert expected_results(testcase) == generate_diff(first, second, format)
 
 
 def test_format_json(data_sets, expected_results):
     testcase = 'format_json'
     format = 'json'
     first, second = data_sets(testcase)
-    assert expected_results(testcase) == gendiff(first, second, format)
+    assert expected_results(testcase) == generate_diff(first, second, format)

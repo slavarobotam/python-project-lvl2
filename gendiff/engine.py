@@ -14,7 +14,7 @@ parser.add_argument('-f', '--format',
                     help='set format of output: "plain", "json", "pretty"')
 
 
-def gendiff(first_path, second_path, format=DEFAULT_FORMATTER):
+def generate_diff(first_path, second_path, format=DEFAULT_FORMATTER):
     first_data = get_parsed_data(first_path)
     second_data = get_parsed_data(second_path)
     ast = build_ast(first_data, second_data)
@@ -27,5 +27,5 @@ def engine(args):
     first_path = args.first_file
     second_path = args.second_file
     format = args.format
-    diff = gendiff(first_path, second_path, format)
+    diff = generate_diff(first_path, second_path, format)
     print(diff)

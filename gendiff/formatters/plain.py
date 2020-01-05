@@ -1,4 +1,4 @@
-from gendiff.constants import NEW, LOST, CHILDREN, CHANGED, COMPLEX
+from gendiff.constants import NEW, LOST, CHILDREN, CHANGED, COMPLEX, SAME
 
 
 def render(data, current_path=''):
@@ -32,7 +32,7 @@ def render(data, current_path=''):
                 pathname, old_value, new_value)
 
         # if the value stays the same
-        else:
+        elif type_ == SAME:
             continue
 
         result.append(entry)
@@ -41,7 +41,7 @@ def render(data, current_path=''):
 
 def get_str_value(property_description):
     value = property_description.get('value')
-    if type(value) == dict:
+    if isinstance(value, dict):
         return COMPLEX
     else:
         return str(value)
